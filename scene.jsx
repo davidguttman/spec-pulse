@@ -49,7 +49,7 @@ var Main = module.exports = React.createClass({
           <AmbientLight color={0xffffff} intensity={0.5} />
 
           { this.props.points.map(function (point, i) {
-            return <LED key={i} position={point.point} />
+            return <LED key={i} position={point.point} idx={i}/>
           }) }
 
         </Scene>
@@ -61,8 +61,8 @@ var Main = module.exports = React.createClass({
     var aspectratio = props.width / props.height
 
     var rho = 600
-    var phi = props.config.rx * 2 * Math.PI
-    var theta = props.config.ry * 2 * Math.PI
+    var theta = (props.config.ry - 0.5) * Math.PI
+    var phi = (props.config.rx - 0.5) * Math.PI
 
     var coords = Coords.sph([rho, theta, phi]).cart()
     var cx = coords[0]

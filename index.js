@@ -1,3 +1,6 @@
+require('./node_modules/sanitize.css/sanitize.css')
+require('./style.css')
+
 var h = require('hyperscript')
 var THREE = require('three')
 var React = require('react')
@@ -10,12 +13,9 @@ var pointlist = require('./pointlist')
 var app = h('.app')
 document.body.appendChild(app)
 
-var w = window.innerWidth-6
-var h = window.innerHeight-6
-
 var sceneprops = {
-  width:w,
-  height:h,
+  width: window.innerWidth,
+  height: window.innerHeight,
   points: pointlist()
 }
 

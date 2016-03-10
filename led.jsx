@@ -24,6 +24,7 @@ var LED = module.exports = React.createClass({
 
   getDefaultProps: function() {
     return {
+      idx: 0,
       radius: 5,
       isOn: true,
       position: [0, 0, 0]
@@ -34,9 +35,17 @@ var LED = module.exports = React.createClass({
     var pos = this.props.position.map(function (v) {return v * 100})
     return {
       geo: new THREE.SphereGeometry( this.props.radius, 20, 10),
-      pos: new THREE.Vector3(pos[0], pos[1], pos[2])
+      pos: new THREE.Vector3(pos[0], pos[1], pos[2]),
+      isOn: this.props.isOn
     }
   },
+
+  // componentWillMount: function() {
+  //   var self = this
+  //   setInterval(function () {
+  //     self.setState({isOn: !self.state.isOn})
+  //   }, this.props.idx + 250)
+  // },
 
   render: function() {
     var sphereGeo = this.state.geo
@@ -46,7 +55,7 @@ var LED = module.exports = React.createClass({
         position={this.state.pos} >
         <Mesh
           geometry={sphereGeo}
-          material={this.props.isOn ? matOn : matOff} />
+          material={this.state.isOn ? matOn : matOff} />
       </Object3D>
     )
   }

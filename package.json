@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --live -- -t [ babelify --presets [ react ] ]"
+    "start": "budo index.js --live -- -g cssify -t [ babelify --presets [ react ] ]"
   },
   "keywords": [],
   "author": "David Guttman <david@guttman.io> (http://davidguttman.com/)",
@@ -17,11 +17,13 @@
   },
   "dependencies": {
     "coordinate-systems": "^1.1.0",
+    "cssify": "^1.0.2",
     "hyperscript": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-three": "^0.8.0",
     "rebass": "^0.2.3",
+    "sanitize.css": "^3.3.0",
     "three": "^0.72.0",
     "xtend": "^4.0.1"
   }
