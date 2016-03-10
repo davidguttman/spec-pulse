@@ -10,7 +10,8 @@ var Config = module.exports = React.createClass({
       onChange: function () {},
       config: {
         rx: 0.5,
-        ry: 0.5
+        ry: 0.5,
+        ledRadius: 5
       }
     }
   },
@@ -34,6 +35,12 @@ var Config = module.exports = React.createClass({
           name='ry'
           value={this.props.config.ry * 100}
           onChange={this._onChange} />
+
+        <Slider
+          label='LED Size'
+          name='ledRadius'
+          value={this.props.config.ledRadius * 10}
+          onChange={this._onChange} />
       </div>
     )
   },
@@ -49,6 +56,9 @@ var Config = module.exports = React.createClass({
         break
       case 'ry':
         fn(name, val/100)
+        break
+      case 'ledRadius':
+        fn(name, val/10)
         break
       default:
         fn(name, val)

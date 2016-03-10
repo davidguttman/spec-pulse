@@ -31,10 +31,21 @@ var LED = module.exports = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    var rCur = this.state.radius
+    if (rCur === nextProps.radius) return
+
+    this.setState({
+      radius: nextProps.radius,
+      geo: this.getGeo(nextProps.radius)
+    })
+  },
+
   getInitialState: function() {
     var pos = this.props.position.map(function (v) {return v * 100})
     return {
-      geo: new THREE.SphereGeometry( this.props.radius, 20, 10),
+      radius: this.props.radius,
+      geo: this.getGeo(this.props.radius),
       pos: new THREE.Vector3(pos[0], pos[1], pos[2]),
       isOn: this.props.isOn
     }
@@ -58,5 +69,9 @@ var LED = module.exports = React.createClass({
           material={this.state.isOn ? matOn : matOff} />
       </Object3D>
     )
+  },
+
+  getGeo: function (r) {
+    return new THREE.SphereGeometry(r, 20, 10)
   }
 })

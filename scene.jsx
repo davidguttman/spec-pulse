@@ -20,7 +20,8 @@ var Main = module.exports = React.createClass({
       points: [],
       config: {
         rx: 0.5,
-        ry: 0.5
+        ry: 0.5,
+        ledRadius: 5
       }
     }
   },
@@ -38,6 +39,7 @@ var Main = module.exports = React.createClass({
   },
 
   render: function() {
+    var self = this
 
     return (
       <Renderer width={this.props.width} height={this.props.height}>
@@ -49,7 +51,11 @@ var Main = module.exports = React.createClass({
           <AmbientLight color={0xffffff} intensity={0.5} />
 
           { this.props.points.map(function (point, i) {
-            return <LED key={i} position={point.point} idx={i}/>
+            return <LED
+              key={i}
+              position={point.point}
+              idx={i}
+              radius={self.props.config.ledRadius} />
           }) }
 
         </Scene>
