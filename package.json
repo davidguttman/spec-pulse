@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --live -- -g cssify -t [ babelify --presets [ react ] ]"
+    "start": "budo index.js --live -- -g cssify -t [ babelify --presets [ react ] ]",
+    "build": "NODE_ENV=production browserify -t envify -g cssify -t [ babelify --presets [ react ] ] index.js | uglifyjs -mc > public/browserify.js",
+    "deploy": "npm run build && surge public"
   },
   "keywords": [],
   "author": "David Guttman <david@guttman.io> (http://davidguttman.com/)",
@@ -13,7 +15,10 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "budo": "^8.1.0"
+    "budo": "^8.1.0",
+    "envify": "^3.4.0",
+    "surge": "^0.17.7",
+    "uglify-js": "^2.6.2"
   },
   "dependencies": {
     "coordinate-systems": "^1.1.0",
