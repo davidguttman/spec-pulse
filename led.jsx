@@ -30,13 +30,20 @@ var LED = module.exports = React.createClass({
     }
   },
 
-  render: function() {
+  getInitialState: function() {
     var pos = this.props.position.map(function (v) {return v * 100})
-    var sphereGeo = new THREE.SphereGeometry( this.props.radius, 20, 10)
+    return {
+      geo: new THREE.SphereGeometry( this.props.radius, 20, 10),
+      pos: new THREE.Vector3(pos[0], pos[1], pos[2])
+    }
+  },
+
+  render: function() {
+    var sphereGeo = this.state.geo
 
     return (
       <Object3D
-        position={new THREE.Vector3(pos[0], pos[1], pos[2])} >
+        position={this.state.pos} >
         <Mesh
           geometry={sphereGeo}
           material={this.props.isOn ? matOn : matOff} />

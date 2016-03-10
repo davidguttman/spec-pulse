@@ -1,49 +1,62 @@
 var React = require('react')
-var THREE = require('three')
-var R3 = require('react-three')
 
-var LED = require('./led.jsx')
-
-var Mesh = R3.Mesh
-var Scene = R3.Scene
-var Renderer = R3.Renderer
-var Object3D = R3.Object3D
-var AmbientLight = R3.AmbientLight
-var PerspectiveCamera = R3.PerspectiveCamera
+var Scene = require('./scene.jsx')
+var Config = require('./config.jsx')
 
 var Main = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
+      width: 500,
+      height: 500,
       points: []
     }
   },
 
-  render: function() {
-    console.log('this.props.points', this.props.points)
+  getInitialState: function() {
+    return {
+      widthConfig: 250,
+      widthScene: 250,
+      config: {
+        rx: 0.5,
+        ry: 0.5
+      }
+    }
+  },
 
-    var aspectratio = this.props.width / this.props.height
-    var cameraprops = {
-      fov: 75, aspect: aspectratio,
-      near: 1, far: 5000,
-      position: new THREE.Vector3(0,0,600),
-      lookat: new THREE.Vector3(0,0,0)
+  componentWillMount: function() {
+    var widthConfig = 300
+    var widthScene = this.props.width - widthConfig
+    this.setState({
+      widthConfig: widthConfig,
+      widthScene: widthScene
+    })
+  },
+
+  render: function() {
+    var style = {
+      display: 'flex',
+      justifyContent: 'space-between'
     }
 
     return (
-      <Renderer width={this.props.width} height={this.props.height}>
+      <div style={style}>
         <Scene
-          width={this.props.width}
+          width={this.state.widthScene}
           height={this.props.height}
-          camera="maincamera" >
-          <PerspectiveCamera name="maincamera" {...cameraprops} />
-          <AmbientLight color={0xffffff} intensity={0.5} />
+          config={this.state.config}
+          points={this.props.points} />
 
-          { this.props.points.map(function (point) {
-            return <LED position={point.point} />
-          }) }
-
-        </Scene>
-      </Renderer>
+        <Config
+          width={this.state.widthConfig}
+          config={this.state.config}
+          onChange={this._configChange }/>
+      </div>
     )
+  },
+
+  _configChange: function (key, val) {
+    var config = this.state.config
+    config[key] = val
+    this.setState({config: config})
   }
 })
