@@ -61,13 +61,13 @@ var Main = module.exports = React.createClass({
     var aspectratio = props.width / props.height
 
     var rho = 600
-    var theta = (props.config.ry - 0.5) * Math.PI
-    var phi = (props.config.rx - 0.5) * Math.PI
+    var theta = (props.config.rx - 0.5) * Math.PI
+    var phi = (props.config.ry - 0.5) * Math.PI
 
     var coords = Coords.sph([rho, theta, phi]).cart()
-    var cx = coords[0]
-    var cy = coords[1]
-    var cz = coords[2]
+    var cx = coords[1]
+    var cy = coords[2]
+    var cz = coords[0]
 
     return {
       fov: 75, aspect: aspectratio,
